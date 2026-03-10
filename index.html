@@ -1,20 +1,35 @@
 <!DOCTYPE html>
-<!-- saved from url=(0033)https://QicongXie.github.io/end2endvc/ -->
+
 <html lang="en-US">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <style>
+    .del {
+      background: #fcd0e0;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+
+    .ins {
+      background: #c4e5f9;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
-
-  <!-- Begin Jekyll SEO tag v2.7.1 -->
-  <title>SingEdit: Controllable Singing Voice Synthesis with Flexible Lyric Manipulation</title>
+  <title>YingMusic-Singer: Controllable Singing Voice Synthesis with Flexible Lyric Manipulation and Annotation-free
+    Melody Guidance</title>
   <meta name="generator" content="Jekyll v3.9.0">
   <meta property="og:title"
-    content="SingEdit: Controllable Singing Voice Synthesis with Flexible Lyric Manipulation">
+    content="YingMusic-Singer: Controllable Singing Voice Synthesis with Flexible Lyric Manipulation and Annotation-free Melody Guidance">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary">
-  <!-- End Jekyll SEO tag -->
+
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f2d0fa">
@@ -28,63 +43,172 @@
 
   <section class="main-content">
     <h1 id="">
-      <center>SingEdit: Controllable Singing Voice Synthesis with Flexible Lyric Manipulation</center>
+      <center>YingMusic-Singer: Controllable Singing Voice Synthesis with Flexible Lyric Manipulation and
+        Annotation-free Melody Guidance</center>
     </h1>
 
+    <div style="text-align: center; margin-top: -0.5rem; margin-bottom: 2rem;">
+      <p>
+        Anonymous submission to Interspeech 2026
+      </p>
+
+      <p>
+
+      </p>
+    </div>
     <h2 id="abstract" style="text-align: center;">Abstract<a name="abstract"></a></h2>
 
     <p style="text-align: justify;">
-      Abstract
+      Regenerating singing voices with altered lyrics while preserving melody consistency remains challenging, as
+      existing methods either offer limited controllability or require laborious manual alignment. We propose
+      YingMusic-Singer, a fully diffusion-based model enabling melody-controllable singing voice synthesis with flexible
+      lyric manipulation. The model takes three inputs: an optional timbre reference, a melody-providing singing clip,
+      and modified lyrics, without manual alignment. Trained with curriculum learning and Group Relative Policy
+      Optimization, YingMusic-Singer achieves stronger melody preservation and lyric adherence than Vevo2, the most
+      comparable baseline supporting melody control without manual alignment. We also introduce LyricEditBench, the
+      first benchmark for melody-preserving lyric modification evaluation. Code, weights, and the benchmark will be
+      publicly released, with demos available at <a href="https://anonymous.4open.science/w/YingMusic-Singer">
+        https://anonymous.4open.science/w/YingMusic-Singer</a>.
     </p>
 
     <br><br>
     <style>
-      /* 将 figure 元素设置为居中 */
       figure {
         text-align: center;
-        /* 内容居中对齐 */
         margin: 0;
-        /* 移除默认外边距 */
       }
 
-      /* 让图片保持其原始大小 */
       img {
         max-width: 100%;
-        /* 限制图片最大宽度以适应父容器 */
         height: auto;
-        /* 保持高度自动 */
       }
 
-      /* 设置 figcaption 的样式 */
       figcaption {
         margin-top: 8px;
-        /* 与图片之间的间距 */
         font-size: 14px;
-        /* 说明文字的字体大小 */
         color: #555;
-        /* 说明文字的颜色 */
       }
 
       .gallery {
         display: flex;
         justify-content: center;
-        /* 居中对齐 */
         align-items: center;
         flex-direction: column;
-        /* 垂直排列 */
       }
     </style>
     <figure>
-      <img src="raw/figs/" alt="model" width="1000" height="800">
+      <img src="figs/YingMusic-Singer.drawio.svg" alt="model" width="1000" height="800">
     </figure>
     <br><br>
 
+    <div class="container pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
+      <h2 style="text-align: center;">Melody Control</h2>
+      <p style="text-align: justify;">
+        The model should preserve the melody from the <i>Original Melody</i>, match the timbre of the <i>Timbre
+          Reference</i>, and faithfully render the <i>Modified Lyrics</i>.
+      </p>
+
+      <div class="table-responsive pt-3">
+        <table class="table table-hover pt-2">
+          <thead>
+            <tr>
+              <th style="text-align: center">Original Language</th>
+              <th style="text-align: center">Edit Task</th>
+              <th style="text-align: center">Original Melody</th>
+              <th style="text-align: center">Timbre Reference</th>
+              <th style="text-align: center">Original Lyrics</th>
+              <th style="text-align: center">Modified Lyrics</th>
+              <th style="text-align: center">Vevo<a href="#ref1"><sup>[1]</sup></a></th>
+              <th style="text-align: center">Ours</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr>
+              <td style="vertical-align: middle; text-align: center;">ZH</td>
+              <td style="vertical-align: middle; text-align: center;">Task 1</td>
+              <td style="vertical-align: middle; text-align: center;">
+                <audio controls style="width: 125px;">
+                  <source src="sample/original_melody_1.wav">
+                </audio>
+              </td>
+              <td style="vertical-align: middle; text-align: center;">
+                <audio controls style="width: 125px;">
+                  <source src="sample/timbre_ref_1.wav">
+                </audio>
+              </td>
+              <td style="vertical-align: middle; text-align: center;">Original lyrics here</td>
+              <td style="vertical-align: middle; text-align: center;">Modified lyrics here</td>
+              <td style="vertical-align: middle; text-align: center;">
+                <audio controls style="width: 125px;">
+                  <source src="sample/vevo_1.wav">
+                </audio>
+              </td>
+              <td style="vertical-align: middle; text-align: center;">
+                <audio controls style="width: 125px;">
+                  <source src="sample/ours_1.wav">
+                </audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="vertical-align: middle; text-align: center;">EN</td>
+              <td style="vertical-align: middle; text-align: center;">Task 2</td>
+              <td style="vertical-align: middle; text-align: center;">
+                <audio controls style="width: 125px;">
+                  <source src="sample/original_melody_2.wav">
+                </audio>
+              </td>
+              <td style="vertical-align: middle; text-align: center;">
+                <audio controls style="width: 125px;">
+                  <source src="sample/timbre_ref_2.wav">
+                </audio>
+              </td>
+
+              <td style="vertical-align: middle; text-align: center;">
+                <span
+                  style="display: inline-block; width: 125px; background: #f1f3f4; padding: 6px 12px; border-radius: 6px; font-size: 0.9rem; color: #333; line-height: 1.6; text-align: left;">
+                  一起走过的<span class="del">春天</span>里
+                </span>
+              </td>
+
+              <td style="vertical-align: middle; text-align: center;">
+                <span
+                  style="display: inline-block; width: 125px; background: #f1f3f4; padding: 6px 12px; border-radius: 6px; font-size: 0.9rem; color: #333; line-height: 1.6; text-align: left;">
+                  一起走过的<span class="ins">夏天</span>里
+                </span>
+              </td>
+              <td style="vertical-align: middle; text-align: center;">
+                <audio controls style="width: 125px;">
+                  <source src="sample/vevo_2.wav">
+                </audio>
+              </td>
+              <td style="vertical-align: middle; text-align: center;">
+                <audio controls style="width: 125px;">
+                  <source src="sample/ours_2.wav">
+                </audio>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
 
     <h2 id="Ethics-statement" style="text-align: center;">Ethics Statement<a name="Ethics Statement"></a></h2>
     <p style="text-align: justify;">
-      SingEdit enables the creation of singing voices with modified lyrics, supporting applications in artistic creation and entertainment. Potential risks include unauthorized voice cloning and copyright infringement. To ensure responsible deployment, users should obtain consent for voice usage, disclose AI involvement, and verify musical originality.
+      YingMusic-Singer enables the creation of singing voices with modified lyrics, supporting applications in artistic
+      creation and entertainment. Potential risks include unauthorized voice cloning and copyright infringement. To
+      ensure responsible deployment, users should obtain consent for voice usage, disclose AI involvement, and verify
+      musical originality.
     </p>
-
+    <h2 id="Ethics-statement" style="text-align: center;">Reference<a name="Reference"></a></h2>
+    <p style="text-align: justify;">
+    <p id="ref1">[1] X. Zhang, J. Zhang, Y. Wang, C. Wang, Y. Chen, D. Jia,
+      Z. Chen, and Z. Wu, “Vevo2: A unified and controllable framework for speech and singing voice generation,” CoRR,
+      vol.abs/2508.16332, 2025.
+    </p>
+    </p>
   </section>
 </body>
 

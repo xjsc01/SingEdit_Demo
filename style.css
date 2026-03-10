@@ -570,11 +570,14 @@ a:hover {
     }
 }
 
-.page-header {
+/* .page-header {
     color: #fff;
     text-align: center;
     background-color: #159957;
     background-image: linear-gradient(60deg, #f2d0fa, #e7f1c9)
+} */
+.page-header {
+    background: linear-gradient(135deg, #FE9EC7, #89D4FF);
 }
 
 @media screen and (min-width: 64em) {
@@ -652,7 +655,7 @@ a:hover {
 
 @media screen and (min-width: 64em) {
     .main-content {
-        max-width: 110rem;
+        max-width: 1480px;
         padding: 2rem 6rem;
         margin: 0 auto;
         font-size: 1.1rem
@@ -678,7 +681,12 @@ a:hover {
 }
 
 .main-content h1,
-.main-content h2,
+.main-content h2 {
+    color: #44ACFF;
+    /* Jekyll 默认主题常用的绿色 */
+}
+
+
 .main-content h3,
 .main-content h4,
 .main-content h5,
